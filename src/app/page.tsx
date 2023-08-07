@@ -7,7 +7,9 @@ import { FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([
+    "Password must be 3 characters or more",
+  ]);
   const [user, setUser] = useState<User>({
     id: 0,
     login: "",
