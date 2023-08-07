@@ -207,9 +207,9 @@ export default function Home() {
           </div>
 
           <div>
-            <table className="table">
+            <table>
               <thead>
-                <tr className="table-head">
+                <tr>
                   <th>ID</th>
                   <th>Login</th>
                   <th>Email</th>
@@ -222,7 +222,7 @@ export default function Home() {
                     <td>{user.id}</td>
                     <td>{user.login}</td>
                     <td>{user.email}</td>
-                    <td className="space-x-2">
+                    <td>
                       <button onClick={() => EditUser(user.id)}>
                         <FaPenToSquare />
                       </button>
