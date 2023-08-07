@@ -143,22 +143,19 @@ export default function Home() {
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
 
   return (
-    <main className="flex h-screen w-screen flex-col items-center justify-center gap-4 ">
-      <h1 className="mb-3 text-4xl font-bold">Users</h1>
-      <div className="card scale-90 border border-gray-200 bg-base-100 p-4 shadow-xl transition duration-300 ease-in-out hover:scale-100 hover:border-gray-700 hover:shadow-2xl">
-        <div className="flex gap-4 divide-x-2 divide-dotted">
-          <div className="space-y-4">
+    <main>
+      <h1>Users</h1>
+      <div>
+        <div>
+          <div>
             <ul>
               {errors.map((error, idx) => (
-                <li className="text-red-500" key={idx}>
-                  {error}
-                </li>
+                <li key={idx}>{error}</li>
               ))}
             </ul>
 
-            <form className="flex flex-col gap-2">
+            <form>
               <input
-                className="input input-bordered"
                 onChange={HandleChange}
                 value={user.login}
                 type="text"
@@ -167,7 +164,6 @@ export default function Home() {
                 placeholder="Login"
               />
               <input
-                className="input input-bordered"
                 onChange={HandleChange}
                 value={user.email}
                 type="email"
@@ -176,7 +172,6 @@ export default function Home() {
                 placeholder="Email"
               />
               <input
-                className="input input-bordered"
                 onChange={HandleChange}
                 value={user.password}
                 type="password"
@@ -185,10 +180,9 @@ export default function Home() {
                 placeholder="Password"
                 minLength={3}
               />
-              <div className="space-x-2">
+              <div>
                 <button
                   type="submit"
-                  className="btn btn-primary disabled:bg-gray-600 disabled:text-gray-300"
                   disabled={user.id > 0 ? true : false}
                   onClick={AddUser}
                 >
@@ -196,7 +190,6 @@ export default function Home() {
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-accent disabled:bg-gray-600 disabled:text-gray-300"
                   disabled={user.id < 1 ? true : false}
                   onClick={UpdateUser}
                 >
@@ -204,7 +197,6 @@ export default function Home() {
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary disabled:bg-gray-600 disabled:text-gray-300"
                   disabled={user.id < 1 ? true : false}
                   onClick={CancelEdit}
                 >
@@ -214,7 +206,7 @@ export default function Home() {
             </form>
           </div>
 
-          <div className="overflow-auto ps-4">
+          <div>
             <table className="table">
               <thead>
                 <tr className="table-head">
@@ -231,16 +223,10 @@ export default function Home() {
                     <td>{user.login}</td>
                     <td>{user.email}</td>
                     <td className="space-x-2">
-                      <button
-                        className="btn btn-warning btn-sm"
-                        onClick={() => EditUser(user.id)}
-                      >
+                      <button onClick={() => EditUser(user.id)}>
                         <FaPenToSquare />
                       </button>
-                      <button
-                        className="btn btn-error btn-sm"
-                        onClick={() => DeleteUser(user.id, false)}
-                      >
+                      <button onClick={() => DeleteUser(user.id, false)}>
                         <FaTrashCan />
                       </button>
                     </td>
