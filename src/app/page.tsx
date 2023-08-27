@@ -41,8 +41,7 @@ export default function Home() {
     GetUsers();
   }, []);
 
-  const AddUser = async (e: MouseEvent<HTMLButtonElement>) => {
-    setErrors([]);
+  function validateInputs(): boolean {
     const validationErrors: string[] = [];
 
     if (user.login.length < 1) {
@@ -57,8 +56,16 @@ export default function Home() {
 
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
-      return;
+      return false;
     }
+
+    return true;
+  }
+
+  const AddUser = async (e: MouseEvent<HTMLButtonElement>) => {
+    setErrors([]);
+
+    if (!validateInputs()) return;
 
     e.preventDefault();
 
@@ -76,19 +83,9 @@ export default function Home() {
 
   const UpdateUser = async (e: MouseEvent<HTMLButtonElement>) => {
     setErrors([]);
-    if (user.login.length < 1) {
-      setErrors((prevState) => [...prevState, "Login cant'n be empty"]);
-      return;
-    } else if (user.email.length < 1) {
-      setErrors((prevState) => [...prevState, "Email cant'n be empty"]);
-      return;
-    } else if (user.password.length < 3) {
-      setErrors((prevState) => [
-        ...prevState,
-        "Password must be 3 characters or more",
-      ]);
-      return;
-    }
+
+    if (!validateInputs()) return;
+
     e.preventDefault();
 
     const resp = await axios.put("/api/users/", {
