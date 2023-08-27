@@ -41,19 +41,22 @@ export default function Home() {
 
   const AddUser = async (e: MouseEvent<HTMLButtonElement>) => {
     setErrors([]);
+    const validationErrors: string[] = [];
 
     if (user.login.length < 1) {
-      setErrors((prevState) => [...prevState, "Login can't be empty"]);
-    } else if (user.email.length < 1) {
-      setErrors((prevState) => [...prevState, "Email can't be empty"]);
-    } else if (user.password.length < 3) {
-      setErrors((prevState) => [
-        ...prevState,
-        "Password must be 3 characters or more",
-      ]);
+      validationErrors.push("Login can't be empty");
+    }
+    if (user.email.length < 1) {
+      validationErrors.push("Email can't be empty");
+    }
+    if (user.password.length < 3) {
+      validationErrors.push("Password must be 3 characters or more");
     }
 
-    if (errors.length > 0) return;
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     e.preventDefault();
 
