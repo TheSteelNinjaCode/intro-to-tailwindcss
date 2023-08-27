@@ -44,17 +44,17 @@ export default function Home() {
 
     if (user.login.length < 1) {
       setErrors((prevState) => [...prevState, "Login can't be empty"]);
-      return;
     } else if (user.email.length < 1) {
       setErrors((prevState) => [...prevState, "Email can't be empty"]);
-      return;
     } else if (user.password.length < 3) {
       setErrors((prevState) => [
         ...prevState,
         "Password must be 3 characters or more",
       ]);
-      return;
     }
+
+    if (errors.length > 0) return;
+
     e.preventDefault();
 
     const resp = await axios.post("/api/users", {
