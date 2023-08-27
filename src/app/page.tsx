@@ -57,6 +57,9 @@ export default function Home() {
       ]);
       return;
     }
+
+    if (errors.length > 0) return;
+
     e.preventDefault();
 
     const resp = await axios.post("/api/users", {
