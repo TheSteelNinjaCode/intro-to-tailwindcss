@@ -121,8 +121,10 @@ export default function Home() {
   const DeleteUser = async (userId: number, deleteConfirm: boolean) => {
     user.id = userId;
     (window as any).deleteModal.showModal();
-    if (!deleteConfirm) return;
-
+    if (!deleteConfirm) {
+      ResetUser();
+      return;
+    }
     const resp = await axios
       .delete("/api/users", {
         params: { id: userId },
