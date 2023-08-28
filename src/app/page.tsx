@@ -122,8 +122,11 @@ export default function Home() {
   const DeleteUser = async (userId: number, deleteConfirm: boolean) => {
     user.id = userId;
     (window as any).deleteModal.showModal();
-    if (!deleteConfirm) return;
-
+    if (!deleteConfirm) {
+      ResetUser();
+      return;
+    }
+    
     const resp = await axios
       .delete("/api/users", {
         params: { id: userId },
@@ -146,10 +149,9 @@ export default function Home() {
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
 
   return (
-    <main className="flex h-screen w-screen flex-col items-center justify-center gap-4 ">
+    <main className="flex h-screen w-screen flex-col items-center justify-center gap-4">
       <h1 className="mb-3 text-4xl font-bold">Users</h1>
-      {/* <div className="card scale-90 border border-gray-200 bg-base-100 p-4 shadow-xl transition duration-300 ease-in-out hover:scale-100 hover:border-gray-700 hover:shadow-2xl"> */}
-      <div className="my-card">
+      <div className="card border border-gray-200 bg-base-100 p-4 shadow-xl">
         <div className="flex gap-4 divide-x-2 divide-dotted">
           <div className="space-y-4">
             <ul>
@@ -252,8 +254,40 @@ export default function Home() {
                 ))}
               </tbody>
             </table>
+
+            {/* <div className="card scale-90 border border-gray-200 bg-base-100 p-4 shadow-xl transition duration-300 ease-in-out hover:scale-100 hover:border-gray-700 hover:shadow-2xl"> */}
+
+            {users.map((user: User) => (
+              <div key={user.id} className="my-card">
+                <p>ID: {user.id}</p>
+                <p>Login: {user.login}</p>
+                <p>Email: {user.email}</p>
+                <p>Created: {user.createdAt.toLocaleString()}</p>
+                <p>Updated: {user.updatedAt.toLocaleString()}</p>
+                <div className="flex gap-2">
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => EditUser(user.id)}
+                  >
+                    <FaPenToSquare />
+                  </button>
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => DeleteUser(user.id, false)}
+                  >
+                    <FaTrashCan />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-md rounded bg-white p-4 shadow">
+        <p className="break-words">
+          ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
+        </p>
       </div>
 
       <dialog id="deleteModal" className="modal">
