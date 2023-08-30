@@ -126,7 +126,7 @@ export default function Home() {
       ResetUser();
       return;
     }
-    
+
     const resp = await axios
       .delete("/api/users", {
         params: { id: userId },
@@ -148,8 +148,10 @@ export default function Home() {
   const HandleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
 
+  const [checked, setChecked] = useState(false);
+
   return (
-    <main className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+    <main className="flex w-screen flex-col items-center justify-center gap-4">
       <h1 className="mb-3 text-4xl font-bold">Users</h1>
       <div className="card border border-gray-200 bg-base-100 p-4 shadow-xl">
         <div className="flex gap-4 divide-x-2 divide-dotted">
@@ -288,6 +290,29 @@ export default function Home() {
         <p className="break-words">
           ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
         </p>
+      </div>
+
+      <div className="space-x-2">
+        <label htmlFor="number">My number</label>
+        <input className="appearance-none border" type="number" id="number" />
+      </div>
+
+      <div>
+        <input
+          type="checkbox"
+          id="toggle-3"
+          className="setting-toggle"
+          checked={checked}
+          name="newCourseVersion"
+          readOnly
+          onChange={() => setChecked(!checked)}
+        />
+        <label
+          htmlFor="toggle-3"
+          data-checked="ON"
+          data-unchecked="OFF"
+          className="toggle-label"
+        ></label>
       </div>
 
       <dialog id="deleteModal" className="modal">

@@ -21,3 +21,91 @@
   border-color: #4a5568;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
+
+/* input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0;
+  margin: 0;
+} */
+
+input[type="checkbox"].setting-toggle {
+  display: none;
+}
+
+input[type="checkbox"].setting-toggle + label {
+  display: inline-block;
+  height: 30px; /* Adjusted height */
+  width: 88px; /* Adjusted width */
+  position: relative;
+  font-size: 12px; /* Adjusted font size */
+  border: 2px solid #dadcf5; /* Adjusted border */
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  background-color: #ebeefc;
+}
+
+input[type="checkbox"].setting-toggle + label::before {
+  position: absolute;
+  top: 1px; /* Adjusted top position */
+  height: 24px; /* Adjusted height */
+  width: 30px; /* Adjusted width */
+  content: "";
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+
+input[type="checkbox"].setting-toggle + label::after {
+  width: 60px; /* Adjusted width */
+  text-align: center;
+  z-index: 2;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%; /* Centered horizontally */
+  transform: translate(-50%, -50%); /* Centered vertically */
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+input[type="checkbox"].setting-toggle:not(:checked) + label {
+  background-color: transparent;
+  text-align: right;
+}
+
+input[type="checkbox"].setting-toggle:not(:checked) + label::after {
+  content: attr(data-unchecked);
+  display: flex; /* Adjusted right position */
+  justify-content: flex-end;
+  opacity: 1;
+  color: #9e9fba;
+}
+
+input[type="checkbox"].setting-toggle:not(:checked) + label::before {
+  left: 2px; /* Adjusted left position */
+  background-color: #9e9fba;
+  border-radius: 2px;
+  width: 40px;
+}
+
+input[type="checkbox"].setting-toggle:checked + label {
+  text-align: left;
+  border-color: #dadcf5;
+}
+
+input[type="checkbox"].setting-toggle:checked + label::after {
+  content: attr(data-checked);
+  display: flex;
+  opacity: 1;
+  color: #9e9fba;
+}
+
+input[type="checkbox"].setting-toggle:checked + label::before {
+  left: 42px; /* Adjusted left position */
+  background-color: #9e9fba;
+  border-radius: 2px;
+  width: 40px;
+}
