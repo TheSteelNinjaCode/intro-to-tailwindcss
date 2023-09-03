@@ -222,7 +222,7 @@ export default function Home() {
             </form>
           </div>
 
-          <div className="overflow-auto ps-4">
+          <div className="w-1/2 overflow-auto ps-4">
             <table className="table">
               <thead>
                 <tr className="table-head">
@@ -259,11 +259,32 @@ export default function Home() {
 
             {/* <div className="card scale-90 border border-gray-200 bg-base-100 p-4 shadow-xl transition duration-300 ease-in-out hover:scale-100 hover:border-gray-700 hover:shadow-2xl"> */}
 
-            {users.map((user: User) => (
+            {/* {users.map((user: User, idx) => (
               <div key={user.id} className="my-card">
                 <p>ID: {user.id}</p>
                 <p>Login: {user.login}</p>
                 <p>Email: {user.email}</p>
+                {idx === 0 ? (
+                  <p className="">
+                    Description: Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Fugiat distinctio a ipsam odit ab
+                    consectetur necessitatibus, ea voluptatem accusantium, vel
+                    amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum.
+                  </p>
+                ) : (
+                  <p className="line-clamp-2">
+                    Description: Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Fugiat distinctio a ipsam odit ab
+                    consectetur necessitatibus, ea voluptatem accusantium, vel
+                    amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum. Description: Lorem, ipsum dolor sit amet
+                    consectetur adipisicing elit. Fugiat distinctio a ipsam odit
+                    ab consectetur necessitatibus, ea voluptatem accusantium,
+                    vel amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum.
+                  </p>
+                )}
                 <p>Created: {user.createdAt.toLocaleString()}</p>
                 <p>Updated: {user.updatedAt.toLocaleString()}</p>
                 <div className="flex gap-2">
@@ -281,12 +302,12 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-md rounded bg-white p-4 shadow">
+      {/* <div className="mx-auto max-w-md rounded bg-white p-4 shadow">
         <p className="break-words">
           ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
         </p>
@@ -314,6 +335,11 @@ export default function Home() {
           className="toggle-label"
         ></label>
       </div>
+
+      <div>
+        <input type="text" placeholder="Search" />
+        <button>search</button>
+      </div> */}
 
       <dialog id="deleteModal" className="modal">
         <form method="dialog" className="modal-box">
