@@ -151,7 +151,7 @@ export default function Home() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <main className="flex w-screen flex-col items-center justify-center gap-4">
+    <main className="flex w-screen h-screen flex-col items-center justify-center gap-4">
       <h1 className="mb-3 text-4xl font-bold">Users</h1>
       <div className="card border border-gray-200 bg-base-100 p-4 shadow-xl">
         <div className="flex gap-4 divide-x-2 divide-dotted">
@@ -222,7 +222,7 @@ export default function Home() {
             </form>
           </div>
 
-          <div className="w-1/2 overflow-auto ps-4">
+          <div className="overflow-auto ps-4">
             <table className="table">
               <thead>
                 <tr className="table-head">
