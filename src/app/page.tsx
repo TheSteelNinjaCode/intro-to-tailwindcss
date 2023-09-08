@@ -3,7 +3,7 @@
 import { User } from "@prisma/client";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { FaPenToSquare, FaTrashCan } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
@@ -41,7 +41,8 @@ export default function Home() {
     GetUsers();
   }, []);
 
-  function validateInputs(): boolean {
+  const AddUser = async (e: MouseEvent<HTMLButtonElement>) => {
+    setErrors([]);
     const validationErrors: string[] = [];
 
     if (user.login.length < 1) {
@@ -56,16 +57,8 @@ export default function Home() {
 
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
-      return false;
+      return;
     }
-
-    return true;
-  }
-
-  const AddUser = async (e: MouseEvent<HTMLButtonElement>) => {
-    setErrors([]);
-
-    if (!validateInputs()) return;
 
     e.preventDefault();
 
@@ -83,9 +76,19 @@ export default function Home() {
 
   const UpdateUser = async (e: MouseEvent<HTMLButtonElement>) => {
     setErrors([]);
-
-    if (!validateInputs()) return;
-
+    if (user.login.length < 1) {
+      setErrors((prevState) => [...prevState, "Login cant'n be empty"]);
+      return;
+    } else if (user.email.length < 1) {
+      setErrors((prevState) => [...prevState, "Email cant'n be empty"]);
+      return;
+    } else if (user.password.length < 3) {
+      setErrors((prevState) => [
+        ...prevState,
+        "Password must be 3 characters or more",
+      ]);
+      return;
+    }
     e.preventDefault();
 
     const resp = await axios.put("/api/users/", {
@@ -125,6 +128,7 @@ export default function Home() {
       ResetUser();
       return;
     }
+
     const resp = await axios
       .delete("/api/users", {
         params: { id: userId },
@@ -145,6 +149,8 @@ export default function Home() {
   // Update specific input field
   const HandleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <main className="h-screen w-screen flex flex-col items-center justify-center gap-4">
@@ -234,11 +240,17 @@ export default function Home() {
                     <td>{user.id}</td>
                     <td>{user.login}</td>
                     <td>{user.email}</td>
-                    <td>
-                      <button onClick={() => EditUser(user.id)}>
+                    <td className="space-x-2">
+                      <button
+                        className="btn btn-warning btn-sm"
+                        onClick={() => EditUser(user.id)}
+                      >
                         <FaPenToSquare />
                       </button>
-                      <button onClick={() => DeleteUser(user.id, false)}>
+                      <button
+                        className="btn btn-error btn-sm"
+                        onClick={() => DeleteUser(user.id, false)}
+                      >
                         <FaTrashCan />
                       </button>
                     </td>
@@ -246,8 +258,89 @@ export default function Home() {
                 ))}
               </tbody>
             </table>
+
+            {/* <div className="card scale-90 border border-gray-200 bg-base-100 p-4 shadow-xl transition duration-300 ease-in-out hover:scale-100 hover:border-gray-700 hover:shadow-2xl"> */}
+
+            {users.map((user: User, idx) => (
+              <div key={user.id} className="my-card">
+                <p>ID: {user.id}</p>
+                <p>Login: {user.login}</p>
+                <p>Email: {user.email}</p>
+                {idx === 0 ? (
+                  <p className="line-clamp-2">
+                    Description: Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Fugiat distinctio a ipsam odit ab
+                    consectetur necessitatibus, ea voluptatem accusantium, vel
+                    amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum.
+                  </p>
+                ) : (
+                  <p className="line-clamp-2">
+                    Description: Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Fugiat distinctio a ipsam odit ab
+                    consectetur necessitatibus, ea voluptatem accusantium, vel
+                    amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum. Description: Lorem, ipsum dolor sit amet
+                    consectetur adipisicing elit. Fugiat distinctio a ipsam odit
+                    ab consectetur necessitatibus, ea voluptatem accusantium,
+                    vel amet quas numquam illo adipisci molestias! Culpa libero
+                    saepe harum.
+                  </p>
+                )}
+                <p>Created: {user.createdAt.toLocaleString()}</p>
+                <p>Updated: {user.updatedAt.toLocaleString()}</p>
+                <div className="flex gap-2">
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => EditUser(user.id)}
+                  >
+                    <FaPenToSquare />
+                  </button>
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => DeleteUser(user.id, false)}
+                  >
+                    <FaTrashCan />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-md rounded bg-white p-4 shadow">
+        <p className="break-words">
+          pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
+        </p>
+      </div>
+
+      <div className="space-x-2">
+        <label htmlFor="number">My number</label>
+        <input className="appearance-none border" type="number" id="number" />
+      </div>
+
+      <div>
+        <input
+          type="checkbox"
+          id="toggle-3"
+          className="setting-toggle"
+          checked={checked}
+          name="newCourseVersion"
+          readOnly
+          onChange={() => setChecked(!checked)}
+        />
+        <label
+          htmlFor="toggle-3"
+          data-checked="ON"
+          data-unchecked="OFF"
+          className="toggle-label"
+        ></label>
+      </div>
+
+      <div className="relative">
+        <input type="text" className="border pe-5" placeholder="Search" />
+        <FaMagnifyingGlass className="absolute right-2 top-1" />
       </div>
 
       <dialog id="deleteModal" className="modal">
